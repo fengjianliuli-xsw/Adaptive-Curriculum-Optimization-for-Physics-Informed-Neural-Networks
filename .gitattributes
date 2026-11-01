@@ -1,0 +1,8 @@
+# Preserve original experiment/checkpoint bytes, including text line endings.
+* -text
+*.gif binary
+*.png binary
+*.pdf binary
+*.pt binary
+*.npz binary
+*.gz binary

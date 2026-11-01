@@ -1,0 +1,74 @@
+{
+  "pdf_pages": 2,
+  "visual_review": "both latest rendered pages inspected; no missing glyphs, clipping or overlap observed",
+  "page_checks": [
+    {
+      "page": 1,
+      "characters": 1966,
+      "text_within_page": true,
+      "links": 0
+    },
+    {
+      "page": 2,
+      "characters": 2660,
+      "text_within_page": true,
+      "links": 11
+    }
+  ],
+  "source_records_unchanged": 146,
+  "checkpoint_audits": [
+    {
+      "project": "pinn_optimizer_lab",
+      "command": [
+        "F:\\RA\\.venv\\Scripts\\python.exe",
+        "-B",
+        "C:\\Users\\ASUS\\Documents\\ChatGPT\\RA\\pinn_optimizer_lab\\tests\\validate_run.py",
+        "C:\\Users\\ASUS\\Documents\\ChatGPT\\RA\\pinn_optimizer_lab\\runs\\demo"
+      ],
+      "returncode": 0,
+      "stdout": "Validated 10 checkpoints, losses, metrics, snapshots and shared initialization.\n",
+      "stderr": ""
+    },
+    {
+      "project": "pinn_2d_optimizer_lab",
+      "command": [
+        "F:\\RA\\.venv\\Scripts\\python.exe",
+        "-B",
+        "F:\\RA\\pinn_2d_optimizer_lab\\tests\\validate_run.py",
+        "F:\\RA\\pinn_2d_optimizer_lab\\runs\\baseline"
+      ],
+      "returncode": 0,
+      "stdout": "Validated 20 saved models: initialization, sampling, individual losses, fields, pressure, force, metrics.\n",
+      "stderr": ""
+    },
+    {
+      "project": "hertz_cylinder_lab",
+      "command": "inline read-only checkpoint audit",
+      "returncode": 0,
+      "stdout": "Read-only Hertz audit: 11 checkpoint losses/metrics and shared recorded hashes verified.\n",
+      "stderr": ""
+    },
+    {
+      "project": "pinn_scheduler_lab",
+      "command": "inline read-only checkpoint audit",
+      "returncode": 0,
+      "stdout": "Read-only scheduler audit: 10 checkpoint metrics/probes and initialization/sampling hashes verified.\n",
+      "stderr": ""
+    }
+  ],
+  "training_started": false,
+  "outputs": {
+    "PINN_Optimization_Research_Note.pdf": {
+      "bytes": 587465,
+      "sha256": "88cb55aa0a57c00edf010b0a0083822354aa29cf1e69a0c2f401edcc3eadf0d3"
+    },
+    "PINN_Optimization_Research_Note.md": {
+      "bytes": 9846,
+      "sha256": "807e7941e6e4188780e4ef1bd0ed2620fac48347348a85c377a1aa4bf865182f"
+    },
+    "experiment_evidence.md": {
+      "bytes": 28462,
+      "sha256": "bcd5c76bd9ee33ca5f0b9f1103dbcc969156bf4b0e6239d39e50141200659171"
+    }
+  }
+}

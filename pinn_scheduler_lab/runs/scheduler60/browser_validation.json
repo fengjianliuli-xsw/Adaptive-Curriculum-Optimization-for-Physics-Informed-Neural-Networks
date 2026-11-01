@@ -1,0 +1,1 @@
+{"passed": true, "checks": [{"pde": "heat2d", "field": "temperature", "passed": true}, {"pde": "ns2d", "field": "u", "passed": true}, {"pde": "ns2d", "field": "v", "passed": true}, {"pde": "ns2d", "field": "pressure", "passed": true}], "errors": []}

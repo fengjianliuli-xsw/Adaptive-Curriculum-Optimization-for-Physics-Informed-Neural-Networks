@@ -1,0 +1,5 @@
+__pycache__/
+test_tmp/
+.pytest_cache/
+runs/
+*.zip

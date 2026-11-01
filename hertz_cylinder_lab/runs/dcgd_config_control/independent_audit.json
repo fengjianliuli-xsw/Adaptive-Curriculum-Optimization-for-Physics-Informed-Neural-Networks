@@ -1,0 +1,30 @@
+[
+  {
+    "optimizer": "dcgd",
+    "independent_equilibrium_mse": 0.0015142547038711526,
+    "maximum_complementarity_abs": 6.027141766948138,
+    "relative_l2": 1.043086363062098,
+    "pressure_relative_l2": 0.9623061193733621,
+    "hertz_pressure_relative_l2": 0.962196260809437,
+    "reaction_n": 97.71458996725283,
+    "force_balance_relative": 0.022854100327471656,
+    "max_penetration_um": 0.0,
+    "max_tension_mpa": 0.0,
+    "independent_fb_rms": 0.03356145578142173,
+    "contact_half_width_mm_threshold": 3.0
+  },
+  {
+    "optimizer": "config",
+    "independent_equilibrium_mse": 0.0015143845354132733,
+    "maximum_complementarity_abs": 6.027365255813857,
+    "relative_l2": 1.0430873817881312,
+    "pressure_relative_l2": 0.9623083160807656,
+    "hertz_pressure_relative_l2": 0.9621984634706394,
+    "reaction_n": 97.71472511432123,
+    "force_balance_relative": 0.02285274885678774,
+    "max_penetration_um": 0.0,
+    "max_tension_mpa": 0.0,
+    "independent_fb_rms": 0.033561428889505605,
+    "contact_half_width_mm_threshold": 3.0
+  }
+]

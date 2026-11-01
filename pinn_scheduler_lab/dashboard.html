@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>PINN · 谁决定下一步学什么？</title>
+<style>
+:root{color-scheme:dark;--bg:#0e1423;--card:#171f31;--ink:#edf2ff;--muted:#9daecb;--line:#2c3952}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.65 'Segoe UI','Microsoft YaHei',sans-serif}main{max-width:1500px;margin:auto;padding:32px}h1{font-size:32px;line-height:1.3;margin:8px 0 12px}h2{font-size:22px;margin:30px 0 12px}p{color:var(--muted);max-width:1100px}.kicker{color:#73d8d2;letter-spacing:2px;font-size:12px}.card{border:1px solid var(--line);background:var(--card);border-radius:14px;padding:18px}.toolbar{display:flex;gap:14px;align-items:center;flex-wrap:wrap;position:sticky;top:0;z-index:4;background:#0e1423ed;padding:14px 0}select,button{font:inherit;color:var(--ink);background:#23304a;border:1px solid #435371;border-radius:7px;padding:7px 12px}button{cursor:pointer}input[type=range]{min-width:230px;flex:1;accent-color:#70dbcc}.tag{border:1px solid #415470;padding:3px 9px;border-radius:20px;color:#b9cbe7;font-size:12px}.legend{display:flex;gap:16px;flex-wrap:wrap;margin:10px 0}.dot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:5px}.plots{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.chart{width:100%;height:235px;display:block}.plot-title{font-size:14px;margin-bottom:4px}.small{font-size:12px;color:var(--muted)}table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}th,td{text-align:right;padding:10px;border-bottom:1px solid var(--line);white-space:nowrap}th:first-child,td:first-child{text-align:left}th{color:var(--muted);font-weight:500}.overflow{overflow-x:auto}.fields{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.field-map{width:100%;height:230px;display:block;image-rendering:auto}.slice{width:100%;height:140px;display:block}.field-title{display:flex;justify-content:space-between;align-items:center}.stages{width:100%;height:210px;display:block}.note{border-left:3px solid #70dbcc;padding:10px 16px;background:#172837;color:#c9dfed}.warn{border-color:#e8b05d;background:#30291e}code{font-family:Consolas,monospace;color:#b2c6e7}a{color:#83c8ff}.pill{font-size:12px}.compare{color:#f6d38b}footer{margin-top:32px;color:var(--muted);font-size:12px}#loading{padding:30px}.statline{display:flex;gap:12px;flex-wrap:wrap}.statline span{background:#202e43;border-radius:8px;padding:8px 12px}
+@media(max-width:1000px){.plots,.fields{grid-template-columns:repeat(2,minmax(0,1fr))}main{padding:18px}h1{font-size:26px}}@media(max-width:650px){.plots,.fields{grid-template-columns:1fr}.toolbar{position:static}}
+</style>
+<main>
+<div class="kicker">PHYSICS-INFORMED LEARNING · SCHEDULING LAB</div>
+<h1>同一个 Adam，下一步该学什么？</h1>
+<p>固定网络、初始化、训练点和学习率，只改变 PDE 与边界约束的学习顺序。A–E 共享计费训练时间；约束诊断和控制决策都计入预算，解析解评估单列。</p>
+<div id="loading">正在读取本地实验数据……</div>
+<section id="app" hidden>
+<div class="toolbar"><label>PDE <select id="pde"></select></label><label>种子 <select id="seed"></select></label><label>场 <select id="field"></select></label><button id="play">▶ 播放</button><input id="time" aria-label="训练进度" type="range" min="0" max="1000" value="1000"><span id="clock" class="tag"></span></div>
+<div class="statline" id="settings"></div><div id="legend" class="legend"></div>
+<div class="note" id="verdict"></div>
+<h2>误差随真实计算预算的变化</h2>
+<p class="small">曲线显示当前种子；误差越低越好。总损失始终用 Lf + Lbc 比较，D 的自适应权重另画。NS 主误差为合并速度的相对 L²，压力另列。</p>
+<div class="plots" id="plots"></div>
+<h2>调度轨迹与约束反弹</h2>
+<div class="card"><canvas id="stages" class="stages"></canvas><div class="small">BC = 橙色 · PDE = 蓝色 · Joint = 绿色。轨迹表示每次检查后接下来执行的动作；时间单位：计费秒。</div></div>
+<div class="overflow card" style="margin-top:14px"><table id="rebound"></table></div>
+<h2>预测怎样靠近解析解</h2>
+<p class="small">所有卡片共用同一色标。上方为二维场，下方为 y = 0.5 截面：白色虚线是真解，彩色实线是预测。滑块按共同训练时间回放；只显示当时已经保存的最近一帧，卡片注明实际帧时刻。</p>
+<div class="fields" id="fields"></div>
+<h2>最终结果与成本</h2>
+<p class="small">汇总当前 PDE 的全部种子，均值 ± 样本标准差；只有一个种子时不估计标准差。报告最终检查点，不按解析误差挑最好模型。</p>
+<div class="overflow card"><table id="summary"></table></div>
+<p id="limits" class="note warn"></p>
+<footer>离线页面，无 CDN、无遥测。详见同目录 REPORT.md / manifest.json；初始权重和最终 Adam 状态均保存在各实验目录。控制器不读取解析解误差。<br>注意：这是有解析解的稳态二维基准；不代表瞬态热传导、高 Reynolds 数或湍流已经验证。</footer>
+</section></main>
+<script src="data.js"></script>
+<script>
+'use strict';
+const D=window.PINN_LAB;
+if(!D){document.getElementById('loading').textContent='缺少 data.js，请先运行 report.py。';throw Error('Missing local data')}
+const $=s=>document.querySelector(s), colors={A:'#8bc5ff',B:'#f7bc69',C:'#b9a1ff',D:'#ee91bb',E:'#64dec4'},actions={BC:'#f7bc69',PDE:'#8bc5ff',Joint:'#64dec4'},labels=D.plans;
+let runs=[],meta=null,timer=null,fieldRanges={};
+const charts=[['train_pde_loss','训练 PDE 损失 Lf',true],['train_bc_loss','训练边界损失 Lbc',true],['relative_l2','真解相对 L² 误差',true],['e_bc','归一化边界误差 e_bc',true],['e_pde','独立检查点 PDE 残差 RMS',true],['gradient_cosine','PDE / BC 梯度余弦',false],['train_total','统一总损失 Lf + Lbc',true],['pressure_relative_l2','NS 压力相对 L² 误差',true],['weights','D 的自适应权重',false]];
+for(const [id,title] of charts){const div=document.createElement('div');div.className='card';div.innerHTML=`<div class="plot-title">${title}</div><canvas class="chart" data-metric="${id}"></canvas>`;$('#plots').append(div)}
+for(const id of ['truth','A','B','C','D','E']){const div=document.createElement('div');div.className='card';div.dataset.method=id;div.innerHTML=`<div class="field-title"><strong style="color:${colors[id]||'#fff'}">${id==='truth'?'解析真解':id+' · '+labels[id]}</strong><span class="pill"></span></div><canvas class="field-map"></canvas><canvas class="slice"></canvas>`;$('#fields').append(div)}
+$('#legend').innerHTML=Object.keys(labels).map(p=>`<span><i class="dot" style="background:${colors[p]}"></i>${p} ${labels[p]}</span>`).join('');
+for(const [id,p] of Object.entries(D.problems))$('#pde').add(new Option(p.title,id));
+$('#pde').onchange=()=>{const old=$('#seed').value;$('#seed').innerHTML='';[...new Set(D.runs.filter(r=>r.kind===$('#pde').value).map(r=>r.seed))].sort().forEach(s=>$('#seed').add(new Option(s,s)));if([...$('#seed').options].some(x=>x.value===old))$('#seed').value=old;load()};
+$('#seed').onchange=load;$('#field').onchange=drawFields;$('#time').oninput=()=>{drawFields();drawStages()};
+$('#play').onclick=()=>{if(timer){clearInterval(timer);timer=null;$('#play').textContent='▶ 播放';return}if(+$('#time').value>=1000)$('#time').value=0;$('#play').textContent='Ⅱ 暂停';timer=setInterval(()=>{$('#time').value=Math.min(1000,+$('#time').value+10);drawFields();drawStages();if(+$('#time').value>=1000)$('#play').click()},110)};
+function context(canvas){const box=canvas.getBoundingClientRect(),ratio=devicePixelRatio||1;canvas.width=Math.max(1,box.width*ratio);canvas.height=Math.max(1,box.height*ratio);const ctx=canvas.getContext('2d');ctx.scale(ratio,ratio);ctx.font='11px Segoe UI';return [ctx,box.width,box.height]}
+function fmt(x,p=2){return Number.isFinite(x)?(100*x).toFixed(p)+'%':'—'}
+function sci(x){return Number.isFinite(x)?x.toExponential(2):'—'}
+function latest(rows,time){let found=rows[0];for(const row of rows){if(row.charged_seconds<=time+1e-6)found=row;else break}return found}
+function chart(canvas,key,log){const [ctx,w,h]=context(canvas),pad={l:53,r:14,t:16,b:30},pw=w-pad.l-pad.r,ph=h-pad.t-pad.b,budget=D.config.budget_seconds;
+ let series=key==='weights'?runs.filter(r=>r.plan==='D').flatMap(r=>[0,1].map((j)=>({name:j?'λbc':'λf',color:j?'#f7bc69':'#ee91bb',points:r.history.map(x=>[x.charged_seconds,x.weights[j]])}))):runs.map(r=>({name:r.plan,color:colors[r.plan],points:r.history.filter(x=>Number.isFinite(x[key])).map(x=>[x.charged_seconds,x[key]])}));
+ const points=series.flatMap(s=>s.points);if(!points.length){ctx.fillStyle='#93a7c9';ctx.fillText('该 PDE 无此指标',pad.l,h/2);return}
+ const tr=x=>log?Math.log10(Math.max(x,1e-12)):x;let ymin=Math.min(...points.map(x=>tr(x[1]))),ymax=Math.max(...points.map(x=>tr(x[1])));if(key==='gradient_cosine'){ymin=-1;ymax=1}if(key==='weights'){ymin=0;ymax=2}if(ymax-ymin<.01){ymin-=.5;ymax+=.5}const y=v=>pad.t+ph*(1-(tr(v)-ymin)/(ymax-ymin)),x=v=>pad.l+pw*Math.min(v/budget,1);
+ ctx.strokeStyle='#2b3952';ctx.fillStyle='#9daecb';for(let i=0;i<5;i++){const q=i/4,yy=pad.t+ph*q;ctx.beginPath();ctx.moveTo(pad.l,yy);ctx.lineTo(w-pad.r,yy);ctx.stroke();const v=ymax-(ymax-ymin)*q;ctx.fillText(log?Math.pow(10,v).toExponential(1):v.toFixed(2),3,yy+4)}for(let i=0;i<4;i++){const xx=pad.l+pw*i/3;ctx.fillText((budget*i/3).toFixed(0)+'s',xx-8,h-8)}
+ if(key==='e_bc'&&D.config.tau_bc>0){const yy=y(D.config.tau_bc);ctx.strokeStyle='#f9d279';ctx.setLineDash([4,4]);ctx.beginPath();ctx.moveTo(pad.l,yy);ctx.lineTo(w-pad.r,yy);ctx.stroke();ctx.setLineDash([]);ctx.fillStyle='#f9d279';ctx.fillText('τbc',w-42,yy-4)}
+ ctx.save();ctx.beginPath();ctx.rect(pad.l,pad.t,pw,ph);ctx.clip();for(const s of series){ctx.strokeStyle=s.color;ctx.lineWidth=1.7;ctx.beginPath();s.points.forEach(([t,v],i)=>i?ctx.lineTo(x(t),y(v)):ctx.moveTo(x(t),y(v)));ctx.stroke()}ctx.restore();if(key==='weights'){ctx.fillStyle='#ee91bb';ctx.fillText('λf',pad.l+8,pad.t+12);ctx.fillStyle='#f7bc69';ctx.fillText('λbc',pad.l+42,pad.t+12)}}
+function drawStages(){const [ctx,w,h]=context($('#stages')),budget=D.config.budget_seconds,pad=38,pw=w-pad-20;ctx.font='12px Segoe UI';runs.forEach((r,i)=>{const yy=14+i*34;ctx.fillStyle=colors[r.plan];ctx.fillText(r.plan,10,yy+15);r.events.filter(e=>e.step<r.steps).forEach((e,j,arr)=>{const end=j+1<arr.length?arr[j+1].charged_seconds:r.charged_seconds;ctx.fillStyle=actions[e.action];ctx.fillRect(pad+pw*Math.min(e.charged_seconds/budget,1),yy,Math.max(.5,pw*(Math.min(end,budget)-e.charged_seconds)/budget),22)})});ctx.strokeStyle='#fff';const xx=pad+pw*(+$('#time').value/1000);ctx.beginPath();ctx.moveTo(xx,5);ctx.lineTo(xx,185);ctx.stroke();ctx.fillStyle='#9daecb';[0,1/3,2/3,1].forEach(f=>ctx.fillText((budget*f).toFixed(0)+'s',pad+pw*f-7,h-6))}
+function mapColor(v,lo,hi){const q=Math.max(0,Math.min(1,(v-lo)/(hi-lo||1))),stops=[[28,37,91],[43,115,142],[77,184,155],[238,222,107]];const x=q*3,j=Math.min(2,Math.floor(x)),f=x-j;return stops[j].map((v,i)=>Math.round(v+(stops[j+1][i]-v)*f))}
+function drawFields(){if(!meta)return;const field=$('#field').value,budget=D.config.budget_seconds,time=+$('#time').value/1000*budget,truth=meta.truth[field],n=truth.length;
+ const snapshotFor=r=>time>=budget?r.snapshots[r.snapshots.length-1]:latest(r.snapshots,time);
+ const [lo,hi]=fieldRanges[field];
+ $('#clock').textContent=time.toFixed(1)+' / '+budget+' s';
+ for(const div of $('#fields').children){const id=div.dataset.method,r=runs.find(x=>x.plan===id),snap=r?snapshotFor(r):null,values=snap?snap.fields[field]:truth;
+ div.querySelector('.pill').textContent=snap?snap.charged_seconds.toFixed(1)+'s · '+snap.step+'步':'色标 '+lo.toFixed(2)+' → '+hi.toFixed(2);
+ const canvas=div.querySelector('.field-map'),[ctx,w,h]=context(canvas),margin=25,size=Math.min(w-margin-20,h-35),left=(w-size)/2,top=8;
+ const off=document.createElement('canvas');off.width=n;off.height=n;const oc=off.getContext('2d'),pixels=oc.createImageData(n,n);for(let iy=0;iy<n;iy++)for(let ix=0;ix<n;ix++){const color=mapColor(values[n-1-iy][ix],lo,hi),i=4*(iy*n+ix);pixels.data.set([...color,255],i)}oc.putImageData(pixels,0,0);ctx.imageSmoothingEnabled=true;ctx.drawImage(off,left,top,size,size);ctx.fillStyle='#aabbd5';ctx.fillText('y ↑',left-22,top+12);ctx.fillText('0',left-4,top+size+16);ctx.fillText('x → 1',left+size-30,top+size+16);ctx.strokeStyle='#ffffff7f';ctx.setLineDash([4,4]);ctx.beginPath();ctx.moveTo(left,top+size/2);ctx.lineTo(left+size,top+size/2);ctx.stroke();ctx.setLineDash([]);
+ const [sc,sw,sh]=context(div.querySelector('.slice')),yy=Math.floor(n/2),slo=lo,shi=hi,sy=v=>12+(sh-38)*(1-(v-slo)/(shi-slo||1)),sx=j=>35+(sw-50)*j/(n-1);sc.fillStyle='#9daecb';sc.fillText('y=0.5',4,12);sc.fillText(hi.toFixed(2),0,30);sc.fillText(lo.toFixed(2),0,sh-24);sc.strokeStyle='#33415b';sc.beginPath();sc.moveTo(35,sh-26);sc.lineTo(sw-15,sh-26);sc.stroke();for(const [arr,color,dash] of [[truth,'#fff',[5,4]],[values,colors[id]||'#fff',[]]]){sc.strokeStyle=color;sc.lineWidth=1.8;sc.setLineDash(dash);sc.beginPath();arr[yy].forEach((v,j)=>j?sc.lineTo(sx(j),sy(v)):sc.moveTo(sx(j),sy(v)));sc.stroke()}sc.setLineDash([]);sc.fillStyle='#9daecb';sc.fillText('x = 0',35,sh-5);sc.fillText('1',sw-22,sh-5)
+ }}
+function load(){meta=D.problems[$('#pde').value];runs=D.runs.filter(r=>r.kind===meta.id&&String(r.seed)===$('#seed').value).sort((a,b)=>a.plan.localeCompare(b.plan));fieldRanges={};for(const field of meta.field_names){let lo=Infinity,hi=-Infinity;for(const array of [meta.truth[field],...runs.flatMap(r=>r.snapshots.map(s=>s.fields[field]))])for(const row of array)for(const value of row){lo=Math.min(lo,value);hi=Math.max(hi,value)}fieldRanges[field]=[lo,hi]}const previousField=$('#field').value;$('#field').innerHTML='';meta.field_names.forEach(f=>$('#field').add(new Option(f,f)));if(meta.field_names.includes(previousField))$('#field').value=previousField;
+ $('#settings').innerHTML=[`Adam · lr ${D.config.lr}`,`3 × ${D.config.width} tanh · float64`,`每 ${D.config.check_every} 步检查`,`τbc = ${D.config.tau_bc}`,`每组 ${D.config.budget_seconds}s`].map(t=>`<span>${t}</span>`).join('');
+ const group=D.summary[meta.id];$('#verdict').textContent=group.verdict;
+ $('#summary').innerHTML='<thead><tr><th>方案</th><th>解误差</th><th>压力误差</th><th>e_bc</th><th>PDE 独立审计 RMS</th><th>步数</th><th>诊断占比</th><th>策略占比</th><th>计费秒</th><th>实际墙钟秒</th></tr></thead><tbody>'+group.methods.map(m=>{const stat=(key,percent=false)=>{const x=m[key];return (percent?fmt(x.mean,key==='policy_fraction'?4:2):x.mean.toPrecision(3))+(x.std===null?'':` ± ${percent?fmt(x.std,key==='policy_fraction'?4:2):x.std.toPrecision(2)}`)};return `<tr><td style="color:${colors[m.plan]}">${m.plan} ${labels[m.plan]}</td><td>${stat('relative_l2',true)}</td><td>${m.pressure_relative_l2?stat('pressure_relative_l2',true):'—'}</td><td>${stat('e_bc')}</td><td>${stat('independent_pde_rms')}</td><td>${stat('steps')}</td><td>${stat('probe_fraction',true)}</td><td>${stat('policy_fraction',true)}</td><td>${stat('charged_seconds')}</td><td>${stat('wall_seconds')}</td></tr>`}).join('')+'</tbody>';
+ $('#rebound').innerHTML='<thead><tr><th>方案</th><th>PDE 阶段 BC 上涨次数 / 检查段数</th><th>最大 BC 反弹倍数</th><th>BC 阶段 PDE 上涨次数 / 检查段数</th><th>最大 PDE 反弹倍数</th><th>动作切换数</th><th>BC / PDE / Joint 优化秒</th></tr></thead><tbody>'+runs.map(r=>{const b=r.rebounds;return `<tr><td style="color:${colors[r.plan]}">${r.plan}</td><td>${b.pde_bc_increases} / ${b.pde_intervals}</td><td>${b.pde_bc_max_ratio.toFixed(2)}×</td><td>${b.bc_pde_increases} / ${b.bc_intervals}</td><td>${b.bc_pde_max_ratio.toFixed(2)}×</td><td>${b.switches}</td><td>${['BC','PDE','Joint'].map(a=>r.action_seconds[a].toFixed(2)).join(' / ')}</td></tr>`}).join('')+'</tbody>';
+ $('#limits').textContent=`本轮 ${group.seeds.length} 个随机种子（${group.seeds.join(', ')}）。${group.seeds.length<3?'这是流程和现象验证，尚不能作统计推断。':''}B/C 为等计费时间三阶段，未做最优分段搜索；D/E 参数预先固定，未按结果调优。E 是手工规则控制器，不能称为“学到了”调度策略。诊断检查有离散间隔，最终检查允许轻微超出预算。`;
+ document.querySelectorAll('canvas[data-metric]').forEach(c=>{const z=charts.find(z=>z[0]===c.dataset.metric);chart(c,z[0],z[2])});drawStages();drawFields();}
+$('#loading').hidden=true;$('#app').hidden=false;$('#pde').onchange();window.addEventListener('resize',()=>{document.querySelectorAll('canvas[data-metric]').forEach(c=>{const z=charts.find(z=>z[0]===c.dataset.metric);chart(c,z[0],z[2])});drawStages();drawFields()});
+</script></html>

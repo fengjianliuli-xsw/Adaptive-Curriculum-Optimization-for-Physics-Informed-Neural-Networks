@@ -1,0 +1,21 @@
+{
+  "dependency_versions": {
+    "torch": "2.15.0+cpu",
+    "numpy": "1.26.4",
+    "scipy": "1.17.1",
+    "scikit-fem": "12.0.2",
+    "matplotlib": "3.8.3",
+    "pillow": "12.3.0",
+    "pytest": "9.2.0"
+  },
+  "source_sha256": {
+    "audit.py": "f945633176e96ec74cecc17f9316daec68f620579ee36a37f1d2d46dd705dbcc",
+    "optimizers.py": "97c3825048aec26cda9c9610e21948ff372307be5b711b5b9253ac326dc9e9f5",
+    "physics.py": "fda29485d78a31ffdaad0638970d5523981d94742d3f03ba019b63a2baa56500",
+    "reference.py": "ae13b91ae9ba0d97824d62969bdcb7efc4b92e9269ebfd1b78bd756662d933ac",
+    "report.py": "f1e0968f92f0b594921e68b6a1d692a711866290a0cc49b32fa27d07041166ec",
+    "train.py": "0b5cb69ee3f1fb88f3f2ec5782832090b634d853f8e9a682d23f2f050c4fa5fc"
+  },
+  "config_sha256": "37570e466d8b3263b97a953568cd9ec55a1c3e76e690865c85a57ade8692f9ac",
+  "note": "Post-training audit only; independent points did not participate in training, model selection or stopping."
+}

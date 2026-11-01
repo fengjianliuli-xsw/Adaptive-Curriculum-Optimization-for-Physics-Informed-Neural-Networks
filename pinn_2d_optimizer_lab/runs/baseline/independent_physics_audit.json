@@ -1,0 +1,162 @@
+[
+  {
+    "problem": "heat2d",
+    "optimizer": "adam",
+    "independent_points": 1024,
+    "independent_pde_mse": 0.0034057248717851564
+  },
+  {
+    "problem": "heat2d",
+    "optimizer": "momentum",
+    "independent_points": 1024,
+    "independent_pde_mse": 0.02459882348646845
+  },
+  {
+    "problem": "heat2d",
+    "optimizer": "rmsprop",
+    "independent_points": 1024,
+    "independent_pde_mse": 0.017979749863578188
+  },
+  {
+    "problem": "heat2d",
+    "optimizer": "lbfgs",
+    "independent_points": 1024,
+    "independent_pde_mse": 5.592750029699183e-05
+  },
+  {
+    "problem": "heat2d",
+    "optimizer": "adam_lbfgs",
+    "independent_points": 1024,
+    "independent_pde_mse": 5.146541375240558e-05
+  },
+  {
+    "problem": "heat2d",
+    "optimizer": "lm",
+    "independent_points": 1024,
+    "independent_pde_mse": 9.408907811647147e-07
+  },
+  {
+    "problem": "heat2d",
+    "optimizer": "multiadam",
+    "independent_points": 1024,
+    "independent_pde_mse": 0.15063956018498814
+  },
+  {
+    "problem": "heat2d",
+    "optimizer": "pcgrad",
+    "independent_points": 1024,
+    "independent_pde_mse": 0.09785788156545105
+  },
+  {
+    "problem": "heat2d",
+    "optimizer": "config",
+    "independent_points": 1024,
+    "independent_pde_mse": 0.49900235919031516
+  },
+  {
+    "problem": "heat2d",
+    "optimizer": "soap",
+    "independent_points": 1024,
+    "independent_pde_mse": 3.0317458627406134e-05
+  },
+  {
+    "problem": "contact2d",
+    "optimizer": "adam",
+    "independent_points": 1024,
+    "independent_pde_mse": 0.000436354472112624,
+    "independent_constitutive_mse": 0.0028219215792814616,
+    "estimated_bottom_reaction_n": 10.055853299657482,
+    "estimated_pressure_force_n": 5.074770099371742,
+    "predicted_force_balance_relative": 0.9815386909650152
+  },
+  {
+    "problem": "contact2d",
+    "optimizer": "momentum",
+    "independent_points": 1024,
+    "independent_pde_mse": 0.00031245156945046307,
+    "independent_constitutive_mse": 0.0038127315203766317,
+    "estimated_bottom_reaction_n": 9.30529940878442,
+    "estimated_pressure_force_n": 4.586696096692233,
+    "predicted_force_balance_relative": 1.0287586560389472
+  },
+  {
+    "problem": "contact2d",
+    "optimizer": "rmsprop",
+    "independent_points": 1024,
+    "independent_pde_mse": 0.005825690257827803,
+    "independent_constitutive_mse": 0.005210875039616568,
+    "estimated_bottom_reaction_n": 10.222474582344176,
+    "estimated_pressure_force_n": 5.054994185512348,
+    "predicted_force_balance_relative": 1.0222524907430885
+  },
+  {
+    "problem": "contact2d",
+    "optimizer": "lbfgs",
+    "independent_points": 1024,
+    "independent_pde_mse": 0.0001905659755248575,
+    "independent_constitutive_mse": 0.0005930129734577188,
+    "estimated_bottom_reaction_n": 12.984772456207018,
+    "estimated_pressure_force_n": 13.063708310766163,
+    "predicted_force_balance_relative": 0.006042377300639171
+  },
+  {
+    "problem": "contact2d",
+    "optimizer": "adam_lbfgs",
+    "independent_points": 1024,
+    "independent_pde_mse": 0.00024422277884889526,
+    "independent_constitutive_mse": 0.000935213601070405,
+    "estimated_bottom_reaction_n": 12.857919109247524,
+    "estimated_pressure_force_n": 12.859710486066952,
+    "predicted_force_balance_relative": 0.0001393014890474304
+  },
+  {
+    "problem": "contact2d",
+    "optimizer": "lm",
+    "independent_points": 1024,
+    "independent_pde_mse": 0.010023130541352137,
+    "independent_constitutive_mse": 0.00020120801897282646,
+    "estimated_bottom_reaction_n": 13.36620421853523,
+    "estimated_pressure_force_n": 13.450496450601449,
+    "predicted_force_balance_relative": 0.006266849136445747
+  },
+  {
+    "problem": "contact2d",
+    "optimizer": "multiadam",
+    "independent_points": 1024,
+    "independent_pde_mse": 0.0025090266068360564,
+    "independent_constitutive_mse": 0.018618034546577858,
+    "estimated_bottom_reaction_n": 6.147365147359222,
+    "estimated_pressure_force_n": 2.203137094089233,
+    "predicted_force_balance_relative": 1.7902780829445002
+  },
+  {
+    "problem": "contact2d",
+    "optimizer": "pcgrad",
+    "independent_points": 1024,
+    "independent_pde_mse": 0.0008036548022715153,
+    "independent_constitutive_mse": 0.006781007005382256,
+    "estimated_bottom_reaction_n": 8.280791407369119,
+    "estimated_pressure_force_n": 3.6893916435501497,
+    "predicted_force_balance_relative": 1.244486952705529
+  },
+  {
+    "problem": "contact2d",
+    "optimizer": "config",
+    "independent_points": 1024,
+    "independent_pde_mse": 0.0018828626112658035,
+    "independent_constitutive_mse": 0.0005734948188785097,
+    "estimated_bottom_reaction_n": 12.442564449533355,
+    "estimated_pressure_force_n": 5.80660590408138,
+    "predicted_force_balance_relative": 1.1428291595934994
+  },
+  {
+    "problem": "contact2d",
+    "optimizer": "soap",
+    "independent_points": 1024,
+    "independent_pde_mse": 0.00013905192450540307,
+    "independent_constitutive_mse": 0.0007494516383209903,
+    "estimated_bottom_reaction_n": 13.133576798260458,
+    "estimated_pressure_force_n": 13.26749175619582,
+    "predicted_force_balance_relative": 0.010093464567093077
+  }
+]

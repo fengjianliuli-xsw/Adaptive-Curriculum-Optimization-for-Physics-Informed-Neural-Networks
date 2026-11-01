@@ -1,0 +1,23 @@
+{
+  "seed": 42,
+  "radius_mm": 10.0,
+  "young_mpa": 200.0,
+  "poisson": 0.3,
+  "top_pressure_mpa": 0.5,
+  "thickness_mm": 10.0,
+  "width": 24,
+  "depth": 3,
+  "n_interior": 256,
+  "n_arc": 128,
+  "steps": 2400,
+  "record_every": 60,
+  "grid": 35,
+  "threads": 1,
+  "equilibrium_weight": 1.0,
+  "constitutive_weight": 10.0,
+  "kkt_weight": 10.0,
+  "boundary_constitutive": true,
+  "formulation": "displacement",
+  "weak_weight": 10.0,
+  "time_budget_seconds": 120.0
+}

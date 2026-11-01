@@ -1,0 +1,5 @@
+__pycache__/
+test_tmp/
+.pytest_cache/
+*.zip
+# Existing experiment records are intentionally versioned in this publication.

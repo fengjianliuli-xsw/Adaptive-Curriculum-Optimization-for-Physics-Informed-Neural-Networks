@@ -1,0 +1,37 @@
+{
+  "passed": true,
+  "animations": [
+    {
+      "file": "heat2d_temperature_slice.gif",
+      "frames": 65,
+      "size": [
+        720,
+        405
+      ]
+    },
+    {
+      "file": "ns2d_pressure_slice.gif",
+      "frames": 65,
+      "size": [
+        720,
+        405
+      ]
+    },
+    {
+      "file": "ns2d_u_slice.gif",
+      "frames": 65,
+      "size": [
+        720,
+        405
+      ]
+    },
+    {
+      "file": "ns2d_v_slice.gif",
+      "frames": 65,
+      "size": [
+        720,
+        405
+      ]
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "dependency_versions": {
+    "torch": "2.15.0+cpu",
+    "numpy": "1.26.4",
+    "scipy": "1.17.1",
+    "scikit-fem": "12.0.2",
+    "matplotlib": "3.8.3",
+    "pillow": "12.3.0",
+    "pytest": "9.2.0"
+  },
+  "source_sha256": {
+    "audit.py": "37bfdabd01eb2f0947757a9be054ce60882810230b0b324d8a5059b05c192059",
+    "build_geometry.py": "f1f34476a6665c940f1950f71ca09d2d35ca7504d6c4f082aa60b67e33d7558f",
+    "fix_template_entry.py": "f465c535bc42400955fabfd4d2288465cd0073074c5d33297562997c9045cad4",
+    "optimizers.py": "97c3825048aec26cda9c9610e21948ff372307be5b711b5b9253ac326dc9e9f5",
+    "physics.py": "fda29485d78a31ffdaad0638970d5523981d94742d3f03ba019b63a2baa56500",
+    "reference.py": "ae13b91ae9ba0d97824d62969bdcb7efc4b92e9269ebfd1b78bd756662d933ac",
+    "report.py": "cc42a2a123838f1df6016a0f1d1b7f4ef038bdde5c0ea24f69ab53547ef3474a",
+    "train.py": "0b5cb69ee3f1fb88f3f2ec5782832090b634d853f8e9a682d23f2f050c4fa5fc"
+  },
+  "config_sha256": "3b1f2c38c21d4d67433415f3ee5408d2852023477dec2cf113e52d763901c2b1",
+  "note": "Post-training audit only; independent points did not participate in training, model selection or stopping."
+}

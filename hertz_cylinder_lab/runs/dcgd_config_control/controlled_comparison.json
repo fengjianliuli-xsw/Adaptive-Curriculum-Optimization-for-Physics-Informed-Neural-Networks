@@ -1,0 +1,18 @@
+{
+  "methods": [
+    "dcgd",
+    "config"
+  ],
+  "learning_rates": [
+    0.001,
+    0.001
+  ],
+  "same_initialization": true,
+  "same_sampling": true,
+  "final_pressure_curve_relative_difference": 3.562744626644849e-05,
+  "pressure_errors_vs_fem": [
+    0.9623061193733621,
+    0.9623083160807656
+  ],
+  "interpretation": "Two-group DCGD-Center and ConFIG directions are equivalent in exact arithmetic; trajectories differ slightly due to pseudoinverse tolerance and accumulated floating-point effects. Both remain inaccurate in this finite-budget experiment."
+}

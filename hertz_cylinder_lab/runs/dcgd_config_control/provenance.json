@@ -1,0 +1,17 @@
+{
+  "versions": {
+    "torch": "2.15.0+cpu",
+    "numpy": "1.26.4",
+    "scipy": "1.17.1",
+    "scikit-fem": "12.0.2",
+    "matplotlib": "3.8.3"
+  },
+  "source_sha256": {
+    "optimizers.py": "469d83f110a89f48ae7682b2dde220e26cecbf1d43b41220d895b6bcb0678369",
+    "physics.py": "fba5b813fcefdb9c22332e8d537a7c76f5b518fc28c8e02dd9a64654f4f6cb8a",
+    "reference.py": "921d3a5bbb4d36fd8d4f09ef65396b97c823292082099433a82d8e59b43b8707",
+    "report.py": "e7acc7b7628ebabd43fdbd5048e100b60ab80b22a2305e478f3a2c76584614d5",
+    "train.py": "0bf17169ab9aa46ebc64081aeecaec93d4a40b48f64b3c1f5d05b43cf217cb77",
+    "validate.py": "f3ade1d8ff8e13a8bcf6e6568f6e1d0764d59491ce8b82077a5f5baa1403c3fb"
+  }
+}

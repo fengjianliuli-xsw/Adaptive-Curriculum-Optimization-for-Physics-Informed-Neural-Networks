@@ -1,0 +1,7 @@
+torch>=2.4,<3
+numpy>=1.26,<3
+scipy>=1.11,<2
+scikit-fem>=11,<13
+matplotlib>=3.8,<4
+pillow>=10,<14
+pytest>=8,<10

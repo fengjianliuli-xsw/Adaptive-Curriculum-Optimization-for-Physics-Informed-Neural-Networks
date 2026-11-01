@@ -1,0 +1,56 @@
+{
+  "source_manifest_files": 582,
+  "original_python_sources_preserved": 38,
+  "gzip_aggregates_verified": 16,
+  "readme_local_targets_checked": 34,
+  "readme_animations": [
+    {
+      "path": "pinn_optimizer_lab/runs/demo/prediction_evolution.gif",
+      "frames": 81,
+      "bytes": 3374356
+    },
+    {
+      "path": "pinn_2d_optimizer_lab/runs/baseline/heat2d_evolution.gif",
+      "frames": 41,
+      "bytes": 673795
+    },
+    {
+      "path": "pinn_2d_optimizer_lab/runs/baseline/contact2d_evolution.gif",
+      "frames": 41,
+      "bytes": 717244
+    },
+    {
+      "path": "hertz_cylinder_lab/runs/kkt_all11/contact_evolution.gif",
+      "frames": 41,
+      "bytes": 518469
+    },
+    {
+      "path": "pinn_scheduler_lab/runs/scheduler60/figures/heat2d_temperature_slice.gif",
+      "frames": 65,
+      "bytes": 480581
+    },
+    {
+      "path": "pinn_scheduler_lab/runs/scheduler60/figures/ns2d_u_slice.gif",
+      "frames": 65,
+      "bytes": 500879
+    },
+    {
+      "path": "pinn_scheduler_lab/runs/scheduler60/figures/ns2d_v_slice.gif",
+      "frames": 65,
+      "bytes": 433118
+    },
+    {
+      "path": "pinn_scheduler_lab/runs/scheduler60/figures/ns2d_pressure_slice.gif",
+      "frames": 65,
+      "bytes": 461004
+    }
+  ],
+  "python_sources_parsed": 43,
+  "files_over_50MiB": [],
+  "credential_pattern_hits": [],
+  "training_started": false,
+  "notes": [
+    "All numerical data are historical results; no new optimizer/scheduler training for publication.",
+    "No credentials were queried or printed by this validation."
+  ]
+}

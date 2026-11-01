@@ -1,0 +1,5 @@
+{
+  "minimum_nodal_gap_over_r": 0.0,
+  "minimum_nodal_pressure_over_e": 0.0,
+  "maximum_nodal_complementarity": 0.0
+}

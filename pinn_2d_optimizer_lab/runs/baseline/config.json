@@ -1,0 +1,14 @@
+{
+  "seed": 42,
+  "width": 24,
+  "depth": 2,
+  "steps": 1200,
+  "record_every": 20,
+  "n_heat": 128,
+  "n_contact": 64,
+  "n_edge": 16,
+  "n_sensors": 48,
+  "noise": 0.0,
+  "threads": 1,
+  "grid": 31
+}

@@ -1,0 +1,16 @@
+[
+  {
+    "kind": "heat2d",
+    "seed": 42,
+    "passed": true,
+    "relative_l2": 0.005347608477319817,
+    "pressure_relative_l2": null
+  },
+  {
+    "kind": "ns2d",
+    "seed": 42,
+    "passed": true,
+    "relative_l2": 0.0063886872095672564,
+    "pressure_relative_l2": 0.08058824869546587
+  }
+]

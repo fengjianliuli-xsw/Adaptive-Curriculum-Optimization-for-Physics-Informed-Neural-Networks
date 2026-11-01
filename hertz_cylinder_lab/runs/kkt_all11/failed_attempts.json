@@ -1,0 +1,8 @@
+[
+  {
+    "optimizer": "config",
+    "lr": 0.02,
+    "status": "nonfinite_diagnostics",
+    "action": "rerun with the same common lr=0.001 as DCGD; no reference-error tuning"
+  }
+]
