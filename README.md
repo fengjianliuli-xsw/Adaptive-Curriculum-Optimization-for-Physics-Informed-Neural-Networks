@@ -4,7 +4,7 @@ PINN 优化器、物理约束学习顺序与曲率辅助调度的研究代码和
 
 **当前状态：已有优化器与规则调度预实验。** 
 
-- [2 页 Research Note（PDF）](reports/PINN_Optimization_Research_Note.pdf) · [可编辑正文](reports/PINN_Optimization_Research_Note.md)
+- [2 页 Research Note（PDF）](reports/PINN_Optimization_Research_Note.pdf) · 
 - [实验证据与局限](reports/experiment_evidence.md) · [全部指标 CSV](reports/verified_metrics.csv)
 - [源文件与压缩数据 SHA256 清单](provenance/source_manifest.json)
 
@@ -21,9 +21,8 @@ PINN 优化器、物理约束学习顺序与曲率辅助调度的研究代码和
 
 每个 PDE/种子内部共享初始化、采样、损失定义和验证点；主对照均为 **seed=42、CPU单线程、float64**。不同优化器使用各自明示的学习率，尚未做等量超参数搜索。
 
-**计时口径不能混用：** 前三组优化器对照的训练秒仅包含更新，排除定期诊断/导出；A–E 的计费秒包含优化、物理诊断和策略决策，解析解评估单列。两者都不是完整软件管线的端到端时间。外层步也不代表等价梯度次数：L-BFGS有重复closure，LM构造完整残差Jacobian。
 
-`*` 表示项目中的教学性自实现核心；SOAP、MultiAdam、PCGrad、ConFIG、DCGD不声称是官方完整实现的严格复现。“GN / LM”是同一个阻尼Gauss–Newton实现，并未独立测试纯GN。AdamW、独立Shampoo、Newton-CG与NNCG仅列入调研，没有独立训练结果。
+`*` 表示项目中的教学性自实现核心；SOAP、MultiAdam、PCGrad、ConFIG、DCGD，“GN / LM”是同一个阻尼Gauss–Newton实现，并未独立测试纯GN。AdamW、独立Shampoo、Newton-CG与NNCG仅列入调研，没有独立训练结果。
 
 ## 1. 一维热方程：10种优化方法
 
