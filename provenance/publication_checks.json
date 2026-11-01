@@ -2,7 +2,7 @@
   "source_manifest_files": 582,
   "original_python_sources_preserved": 38,
   "gzip_aggregates_verified": 16,
-  "readme_local_targets_checked": 34,
+  "readme_local_targets_checked": 39,
   "readme_animations": [
     {
       "path": "pinn_optimizer_lab/runs/demo/prediction_evolution.gif",

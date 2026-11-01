@@ -83,6 +83,19 @@ $$T^*(x,y)=\sin(\pi x)\sin(\pi y)+0.2\sin(3\pi x)\sin(2\pi y),\qquad q=-\Delta T
 代码可以确认LM每轮构造完整Jacobian、Gram矩阵、稠密求解和阻尼试探；**历史日志没有分段profile，不能确定哪个环节主导耗时**。没有GPU显存记录。
 
 
+<details>
+<summary>展开二维热传导与载荷反演的各项Loss、误差和时间曲线</summary>
+
+![2D heat: all loss components and error curves](pinn_2d_optimizer_lab/runs/baseline/heat2d_training_curves.png)
+
+![2D heat: relative error versus update time](pinn_2d_optimizer_lab/runs/baseline/heat2d_error_vs_time.png)
+
+![2D inverse elasticity: all loss components and error curves](pinn_2d_optimizer_lab/runs/baseline/contact2d_training_curves.png)
+
+![2D inverse elasticity: relative error versus update time](pinn_2d_optimizer_lab/runs/baseline/contact2d_error_vs_time.png)
+
+</details>
+
 **二维温度场的训练动画**
 
 ![2D heat: prediction evolution](pinn_2d_optimizer_lab/runs/baseline/heat2d_evolution.gif)
@@ -124,6 +137,13 @@ $$T^*(x,y)=\sin(\pi x)\sin(\pi y)+0.2\sin(3\pi x)\sin(2\pi y),\qquad q=-\Delta T
 ![Hertz KKT: unsuccessful pressure and gap evolution](hertz_cylinder_lab/runs/kkt_all11/contact_evolution.gif)
 
 ![Hertz KKT: pressure, gap and time comparisons](hertz_cylinder_lab/runs/kkt_all11/pressure_gap_and_time.png)
+
+<details>
+<summary>展开Hertz/KKT各项Loss与误差曲线（包含失稳方法）</summary>
+
+![Hertz KKT: loss components and errors](hertz_cylinder_lab/runs/kkt_all11/training_curves.png)
+
+</details>
 
 DCGD-Center与ConFIG另做了**相同两组目标、相同lr=0.001**的控制实验：该非退化两目标实现下方向等价，最终压力曲线的相对差约 $3.56\times10^{-5}$；两者都不准确。不能把这两条近乎相同的轨迹视为两个独立的算法优势证据。ConFIG在lr=.02时的非有限失败也保留在记录中。
 
