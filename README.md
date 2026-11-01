@@ -2,13 +2,12 @@
 
 PINN 优化器、物理约束学习顺序与曲率辅助调度的研究代码和实验记录。
 
-**当前状态：已有优化器与规则调度预实验；GN/JVP 曲率辅助目标调度仍是研究构想，尚未实现或验证。** 本仓库包含成功算例、未成功的接触算例、失败尝试和研究简报，不把单种子结果当成普遍算法排名。
+**当前状态：已有优化器与规则调度预实验。** 
 
 - [2 页 Research Note（PDF）](reports/PINN_Optimization_Research_Note.pdf) · [可编辑正文](reports/PINN_Optimization_Research_Note.md)
 - [实验证据与局限](reports/experiment_evidence.md) · [全部指标 CSV](reports/verified_metrics.csv)
 - [源文件与压缩数据 SHA256 清单](provenance/source_manifest.json)
 
-README 内直接展示真实记录的对比图和训练 GIF。下载仓库后可从相同数据重建可拖动、可选择输出场的离线交互看板；GitHub 文件预览本身不会运行看板 JavaScript。
 
 ## 实验范围与公平性
 
